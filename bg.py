@@ -12,6 +12,7 @@ import json
 if __name__=='__main__':
   
   PROXY='203.115.123.165:9999'
+  max_tries=100;tries=0
   
   date=datetime.datetime.now();date_str=date.strftime('%d_%m_%Y');  
   options=webdriver.ChromeOptions();
@@ -28,11 +29,20 @@ if __name__=='__main__':
     "socksVersion":4
 
 }
+  
   driver=webdriver.Chrome(chrome_options=options)  
+  
+  url='https://www.powerbi.com/view?r=eyJrIjoiOTcyM2JkNTQtYzA5ZS00MWI4LWIxN2UtZjY1NjFhYmFjZDBjIiwidCI6ImQ1ZmE3M2I0LTE1MzgtNGRjZi1hZGIwLTA3NGEzNzg4MmRkNiJ9'
   #driver.get('https://apps.bbmpgov.in/Covid19/en/bedstatus.php')
-  driver.get('https://www.powerbi.com/view?r=eyJrIjoiOTcyM2JkNTQtYzA5ZS00MWI4LWIxN2UtZjY1NjFhYmFjZDBjIiwidCI6ImQ1ZmE3M2I0LTE1MzgtNGRjZi1hZGIwLTA3NGEzNzg4MmRkNiJ9')
-  #driver.get('20.186.65.100/view?r=eyJrIjoiOTcyM2JkNTQtYzA5ZS00MWI4LWIxN2UtZjY1NjFhYmFjZDBjIiwidCI6ImQ1ZmE3M2I0LTE1MzgtNGRjZi1hZGIwLTA3NGEzNzg4MmRkNiJ9')
-  time.sleep(8)
+  
+  while tries<max_tries:
+    try: 
+      driver.get(url);
+    except:
+      print('Failed on try: %d..Retrying' %(tries));
+      tries+=1;
+  
+  time.sleep(5)
   date=datetime.datetime.now();date_str=date.strftime('%d_%m_%Y')
   if not os.path.exists('images/'+date_str+'.png'):
     driver.save_screenshot('images/'+date_str+'.png')
