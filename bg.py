@@ -11,12 +11,23 @@ import json
 
 if __name__=='__main__':
   
+  PROXY='203.115.123.165:9999'
+  
   date=datetime.datetime.now();date_str=date.strftime('%d_%m_%Y');  
   options=webdriver.ChromeOptions();
   options.add_argument('--ignore-certificate-errors');
   options.add_argument('--disable-gpu');
   options.add_argument("--headless")
   options.add_argument("--window-size=1366,768")
+  webdriver.DesiredCapabilities.CHROME['proxy'] = {
+    "httpProxy": PROXY,
+    "ftpProxy": PROXY,
+    "sslProxy": PROXY,
+    "proxyType": "MANUAL",
+    "socksProxy": PROXY,
+    "socksVersion":4
+
+}
   driver=webdriver.Chrome(chrome_options=options)  
   #driver.get('https://apps.bbmpgov.in/Covid19/en/bedstatus.php')
   driver.get('https://www.powerbi.com/view?r=eyJrIjoiOTcyM2JkNTQtYzA5ZS00MWI4LWIxN2UtZjY1NjFhYmFjZDBjIiwidCI6ImQ1ZmE3M2I0LTE1MzgtNGRjZi1hZGIwLTA3NGEzNzg4MmRkNiJ9')
