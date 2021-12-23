@@ -38,7 +38,7 @@ jobs:
     #~ - name: Setup upterm session
       #~ uses: lhotari/action-upterm@v1
 
-    - name: Scrape delhi beds dashboard
+    - name: Archive Mumbai dashboard
       run: |
         python scraper.py
     - name: Commit modified data.csv
