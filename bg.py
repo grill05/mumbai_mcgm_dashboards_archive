@@ -20,6 +20,8 @@ if __name__=='__main__':
   options.add_argument('--disable-gpu');
   options.add_argument("--headless")
   options.add_argument("--window-size=1366,768")
+  options.add_argument("--proxy-server=socks4://"+PROXY);
+
   webdriver.DesiredCapabilities.CHROME['proxy'] = {
     "httpProxy": PROXY,
     "ftpProxy": PROXY,
@@ -33,7 +35,7 @@ if __name__=='__main__':
   driver=webdriver.Chrome(chrome_options=options)  
   
   url='https://www.powerbi.com/view?r=eyJrIjoiOTcyM2JkNTQtYzA5ZS00MWI4LWIxN2UtZjY1NjFhYmFjZDBjIiwidCI6ImQ1ZmE3M2I0LTE1MzgtNGRjZi1hZGIwLTA3NGEzNzg4MmRkNiJ9'
-  #driver.get('https://apps.bbmpgov.in/Covid19/en/bedstatus.php')
+  # ~ url='https://apps.bbmpgov.in/Covid19/en/bedstatus.php'
   
   while tries<max_tries:
     try: 
