@@ -1,7 +1,8 @@
 import os,requests,json,datetime,csv
 
 if __name__=='__main__':
-  proxy='socks4://203.115.123.165:9999'
+  #proxy='socks4://203.115.123.165:9999'
+  proxy='socks4://157.119.201.231:1080'
   max_tries=100;tries=0
 
   
