@@ -1,1 +1,2 @@
 date,cases,tests,O2_capacity,ICU_capacity,Ventilator_capacity,O2_occupied,ICU_occupied,Ventilator_occupied,general_beds_capacity,general_beds_occupancy,active,symp,asymp,critical
+2022-01-02,791457,13765650,10523,2720,1360,877,392,253,31933,3324,22334,2002,20099,233
