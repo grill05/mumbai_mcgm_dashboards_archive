@@ -1,4 +1,4 @@
-import os,requests,json,datetime,csv
+import os,sys,requests,json,datetime,csv
 
 def mumbai_bulletin_parser(bulletin=''):
   #get date
@@ -55,8 +55,14 @@ def mumbai_bulletin_parser(bulletin=''):
     vent_cap=int(vc);vent_occupancy=int(vo)
  
   row=(date_str,cases,tests,o2_cap,icu_cap,vent_cap,o2_occupancy,icu_occupancy,vent_occupancy,gen_beds_cap,gen_beds_occupancy,active,symp,asymp,critical)
-  a=open('mumbai.csv','a');w=csv.writer(a);w.writerow(row);a.close()
-  # ~ return b
+  
+  a=open('mumbai.csv');r=csv.reader(a);info=[i for i in r];a.close()
+  dates=list(set([i[0] for i in info[1:] if len(i)>0]));dates.sort()
+  if date_str in dates:     
+    print('----------\n\nData for %s already exists in mumbai.csv!!\nOnly printing, not modifying csv!!\n\n----------\n\n' %(date_str))
+  else:
+    a=open('mumbai.csv','a');w=csv.writer(a);w.writerow(row);a.close()
+  print(row)
   return row
 
 
@@ -65,25 +71,20 @@ if __name__=='__main__':
   dashboard_fname="mumbai_dashboards/"+date_str+'.pdf'
   
   if sys.argv[-1].endswith('.pdf'): #parse bulletin
-    print('trying to automatically parse '+bulletin)
-    return mumbai_bulletin_parser(sys.argv[-1])
+    print('trying to parse '+sys.argv[-1])
+    mumbai_bulletin_parser(sys.argv[-1])
   elif sys.argv[-1] in ['parse_today_bulletin']: #parse bulletin
     print('trying to automatically detect and parse bulletin for today')
-    if not os.path.exists(dashboard_fname):      print('bulletin for today: %s not found,returning' %(dashboard_fname));return
-    else:      return mumbai_bulletin_parser(dashboard_fname)
-    
+    if not os.path.exists(dashboard_fname):      print('bulletin for today: %s not found,returning' %(dashboard_fname))
+    else:      mumbai_bulletin_parser(dashboard_fname)
+  else:  
+    proxy='socks4://203.115.123.165:9999'
+    max_tries=100;tries=0
   
-  proxy='socks4://203.115.123.165:9999'
-  max_tries=100;tries=0
-
-  
-  # ~ os.system('curl -# "https://stopcoronavirus.mcgm.gov.in/assets/docs/Dashboard.pdf" -o "mumbai_dashboards/'+date_str+'.pdf"')
-
-  
-  while (not os.path.exists(dashboard_fname)) and (tries<max_tries):    
-    cmd='curl  -k -x "'+proxy+'" "https://stopcoronavirus.mcgm.gov.in/assets/docs/Dashboard.pdf" -o "'+dashboard_fname+'"'
-    print(cmd)
-    os.system(cmd)
-    os.system('ls -a mumbai_dashboards/')
-    tries+=1
+    while (not os.path.exists(dashboard_fname)) and (tries<max_tries):    
+      cmd='curl  -k -x "'+proxy+'" "https://stopcoronavirus.mcgm.gov.in/assets/docs/Dashboard.pdf" -o "'+dashboard_fname+'"'
+      print(cmd)
+      os.system(cmd)
+      os.system('ls -a mumbai_dashboards/')
+      tries+=1
 
