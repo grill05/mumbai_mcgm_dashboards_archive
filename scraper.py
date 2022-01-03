@@ -80,6 +80,7 @@ if __name__=='__main__':
   elif sys.argv[-1] in ['download_bulletin']:  
     proxy='socks4://203.115.123.165:9999'
     max_tries=100;tries=0
+    if os.path.exists(dashboard_fname): print('todays bulletin already exists.nothing to download')
   
     while (not os.path.exists(dashboard_fname)) and (tries<max_tries):    
       cmd='curl  -k -x "'+proxy+'" "https://stopcoronavirus.mcgm.gov.in/assets/docs/Dashboard.pdf" -o "'+dashboard_fname+'"'
