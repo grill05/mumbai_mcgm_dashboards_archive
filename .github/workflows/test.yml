@@ -41,7 +41,7 @@ jobs:
 
     - name: Archive Mumbai dashboard
       run: |
-        python scraper.py
+        python scraper.py download_bulletin
     - name: Automatically parse todays dashboard
       run: |
         python scraper.py parse_today_bulletin

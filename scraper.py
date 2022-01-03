@@ -77,7 +77,7 @@ if __name__=='__main__':
     print('trying to automatically detect and parse bulletin for today')
     if not os.path.exists(dashboard_fname):      print('bulletin for today: %s not found,returning' %(dashboard_fname))
     else:      mumbai_bulletin_parser(dashboard_fname)
-  else:  
+  elif sys.argv[-1] in ['download_bulletin']:  
     proxy='socks4://203.115.123.165:9999'
     max_tries=100;tries=0
   
