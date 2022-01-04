@@ -1,4 +1,6 @@
 import os,sys,requests,json,datetime,csv
+#proxy='socks4://203.115.123.165:9999'
+proxy='socks4://157.119.201.231	:1080'
 
 def mumbai_bulletin_parser(bulletin=''):
   #get date
@@ -78,7 +80,6 @@ if __name__=='__main__':
     if not os.path.exists(dashboard_fname):      print('bulletin for today: %s not found,returning' %(dashboard_fname))
     else:      mumbai_bulletin_parser(dashboard_fname)
   elif sys.argv[-1] in ['download_bulletin']:  
-    proxy='socks4://203.115.123.165:9999'
     max_tries=100;tries=0
     if os.path.exists(dashboard_fname): print('todays bulletin already exists.nothing to download')
   
