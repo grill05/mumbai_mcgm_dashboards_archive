@@ -1,6 +1,7 @@
 import os,sys,requests,json,datetime,csv
 #proxy='socks4://203.115.123.165:9999'
-proxy='socks4://157.119.201.231:1080'
+#proxy='socks4://157.119.201.231:1080'
+proxy='socks4://150.129.170.13:44502'
 
 def mumbai_bulletin_parser(bulletin=''):
   #get date
